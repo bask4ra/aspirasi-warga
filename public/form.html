@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kirim Aspirasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center relative">
+
+    <!-- Tombol Kembali -->
+    <a
+      href="/dashboard.html"
+      class="absolute top-6 left-6 flex items-center text-blue-600 hover:text-blue-800 transition"
+    >
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="font-medium">Kembali</span>
+    </a>
+
+    <!-- Form -->
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-lg mt-12">
+      <h2 class="text-2xl font-bold text-blue-600 mb-6 text-center">Kirim Aspirasi</h2>
+
+      <form id="aspirasiForm" class="space-y-4">
+        <div>
+          <label class="block font-semibold mb-1">Judul Aspirasi</label>
+          <input
+            type="text"
+            name="judul"
+            required
+            placeholder="Contoh: Jalan rusak"
+            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Deskripsi</label>
+          <textarea
+            name="deskripsi"
+            required
+            rows="4"
+            placeholder="Jelaskan masalah yang terjadi secara mendetail"
+            class="w-full px-4 py-2 border border-gray-300 rounded resize-none focus:outline-none focus:ring focus:ring-blue-300"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Lokasi</label>
+          <input
+            type="text"
+            name="lokasi"
+            required
+            placeholder="Contoh: Jalan Melati, RT 01/RW 03"
+            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+        >
+          Kirim Aspirasi
+        </button>
+      </form>
+
+      <p class="text-sm text-gray-500 mt-6 text-center">
+        Terima kasih telah menyampaikan aspirasi Anda 🙏
+      </p>
+    </div>
+
+    <script>
+      document.getElementById('aspirasiForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+          judul: form.judul.value,
+          deskripsi: form.deskripsi.value,
+          lokasi: form.lokasi.value
+        };
+
+        const res = await fetch('/aspirasi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        alert(result.message || "Aspirasi berhasil dikirim!");
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
