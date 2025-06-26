@@ -6,6 +6,14 @@ const aspirasiSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  nama: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
   judul: {
     type: String,
     required: true
@@ -22,6 +30,10 @@ const aspirasiSchema = new mongoose.Schema({
     type: String,
     enum: ['Menunggu', 'Diproses', 'Selesai'],
     default: 'Menunggu'
+  },
+  komentar: {
+    type: String,
+    default: ''
   },
   createdAt: {
     type: Date,
